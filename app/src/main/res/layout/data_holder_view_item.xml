@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    android:background="@drawable/background_item"
+    android:id="@+id/rootItemView"
+    android:layout_margin="10dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/textTitleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Bank"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textMessageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Saderat"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintTop_toBottomOf="@id/textTitleView"/>
+
+    <ImageView
+        android:id="@+id/deleteItemView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:src="@android:drawable/ic_menu_delete"
+        app:layout_constraintRight_toRightOf="@id/textTitleView"
+        app:layout_constraintBottom_toBottomOf="@id/textMessageView"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
