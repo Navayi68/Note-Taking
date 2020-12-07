@@ -7,6 +7,12 @@
     android:padding="10dp"
     tools:context=".AddNote">
 
+    <Spinner
+        android:id="@+id/spinnerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <EditText
         android:id="@+id/titleViewItem"
         android:layout_width="match_parent"
@@ -17,7 +23,7 @@
         android:singleLine="true"
         android:imeOptions="actionNext"
         android:maxLength="30"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/spinnerView"/>
 
     <EditText
         android:id="@+id/messageViewItem"

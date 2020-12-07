@@ -4,22 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     tools:context=".MainActivity">
+
+
+    <ImageView
+        android:id="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/actionbar"
+        android:layout_margin="20dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/textSearchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:hint="Type To Search"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="60dp"
+        android:singleLine="true"
+        android:lines="1"
+        android:maxLength="15"
+        android:imeOptions="actionSearch"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="@id/actionBar"
+        app:layout_constraintLeft_toLeftOf="@id/actionBar"/>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/layoutIconImage1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/layout_icon1"
+        android:scaleType="centerCrop"
+        android:background="@null"
+        android:visibility="invisible"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toRightOf="@id/textSearchView"
+        app:layout_constraintBottom_toBottomOf="@id/textSearchView"/>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/layoutIconImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/layout_icon"
+        android:scaleType="centerCrop"
+        android:background="@null"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toRightOf="@id/textSearchView"
+        app:layout_constraintBottom_toBottomOf="@id/textSearchView"/>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/setting"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintLeft_toLeftOf="@id/actionBar"
+        app:layout_constraintBottom_toBottomOf="@id/textSearchView"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        app:layout_constraintTop_toBottomOf="@id/actionBar"
+        app:layout_constraintBottom_toTopOf="@id/buttonAdd"/>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:backgroundTint="#85F117"
+        android:backgroundTint="#2196F3"
+        android:layout_marginRight="60dp"
         android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="@id/taskBar"
+        app:layout_constraintRight_toRightOf="@id/taskBar"/>
+
+    <ImageView
+        android:id="@+id/taskBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/task_bar"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <ImageButton
+        android:id="@+id/deleteItemView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_delete"
+        android:background="@null"
+        android:visibility="invisible"
+        android:layout_marginRight="150dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintRight_toLeftOf="@id/buttonAdd"
+        app:layout_constraintBottom_toBottomOf="@id/taskBar"/>
+
+    <ImageButton
+        android:id="@+id/editItemView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@android:drawable/ic_menu_edit"
+        android:visibility="invisible"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintRight_toLeftOf="@id/deleteItemView"
+        app:layout_constraintBottom_toBottomOf="@id/taskBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
