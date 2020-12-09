@@ -5,20 +5,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.add_note.view.*
-import kotlinx.android.synthetic.main.data_holder_view_uncategorized.view.*
+import kotlinx.android.synthetic.main.data_holder_view_uncategorized.view.textCategorizedView
+import kotlinx.android.synthetic.main.data_holder_view_uncategorized.view.textCurrentDateView
+import kotlinx.android.synthetic.main.data_holder_view_uncategorized.view.tickItemView
+import kotlinx.android.synthetic.main.data_holder_view_work.view.*
 
 class NoteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    val rootItem: ConstraintLayout = view.rootViewItem
+    val rootItem: ConstraintLayout = view.rootItemView
 
-    val titleView: TextView = view.textTitleholder
+    val imageNote:ImageView = view.imageNote
 
-    val messageView: TextView = view.textMessageHolder
+    val titleView: TextView = view.textTitleView
 
-    val tickItem: ImageView = view.imageTick
+    val messageView: TextView = view.textMessageView
 
-    val currentDateItem: TextView = view.textCurrentDate
+    val tickItem: ImageView = view.tickItemView
+
+    val currentDateItem: TextView = view.textCurrentDateView
 
     val categorizedView: TextView = view.textCategorizedView
 

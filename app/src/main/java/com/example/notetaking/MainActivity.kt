@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notetaking.DataProcess.AfterBackgroundProcess
 import com.example.notetaking.DataProcess.NoteInformationDataProcess
@@ -90,7 +90,9 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
         noteAdapter = NoteAdapter(this, this)
 
-        mainBinding.recyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        mainBinding.recyclerView.layoutManager = GridLayoutManager(
+            this@MainActivity, 2, GridLayoutManager.VERTICAL, false
+        )
 
         mainBinding.recyclerView.adapter = noteAdapter
 
@@ -110,8 +112,9 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
     override fun deleteData(
         specificDataKey: String, specificDataPosition: Int,
-        imageView: ConstraintLayout,
-        tickItem: ImageView) {
+        imageView: ImageView,
+        tickItem: ImageView
+    ) {
 
         mainBinding.deleteItemView.visibility = View.VISIBLE
 
@@ -168,11 +171,11 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
                     noteAdapter.notifyDataSetChanged()
 
-                    imageView.setBackgroundResource(R.color.white)
+                    imageView.colorFilter=null
 
-                    tickItem.visibility=View.INVISIBLE
+                    tickItem.visibility = View.INVISIBLE
 
-                    mainBinding.buttonAdd.visibility=View.VISIBLE
+                    mainBinding.buttonAdd.visibility = View.VISIBLE
 
                 }
 
@@ -187,7 +190,7 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
     override fun editData(
         specificKeyPosition: Int,
-        imageView: ConstraintLayout,
+        imageView: ImageView,
         tickItem: ImageView
     ) {
 
@@ -203,11 +206,11 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
             mainBinding.deleteItemView.visibility = View.INVISIBLE
 
-            imageView.setBackgroundResource(R.color.white)
+            imageView.colorFilter=null
 
-            tickItem.visibility=View.INVISIBLE
+            tickItem.visibility = View.INVISIBLE
 
-            mainBinding.buttonAdd.visibility=View.VISIBLE
+            mainBinding.buttonAdd.visibility = View.VISIBLE
 
             startActivity(intent)
         }

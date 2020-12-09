@@ -1,93 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootViewItem"
-    android:padding="10dp"
-    android:background="#FFFFFF">
-
-    <TextView
-        android:id="@+id/textTitleholder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_marginLeft="40dp"
-        tools:text="RecyclerView"
-        android:textColor="@color/black"
+    android:id="@+id/rootItemView"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
+    <ImageView
+        android:id="@+id/imageNote"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/family"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/textMessageHolder"
+        android:id="@+id/textTitleView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Bank"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="20sp"
+        android:singleLine="true"
+        android:maxLength="9"
+        android:layout_margin="35dp"
+        app:layout_constraintTop_toTopOf="@id/imageNote"
+        app:layout_constraintLeft_toLeftOf="@id/imageNote" />
+
+    <TextView
+        android:id="@+id/textMessageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Melli"
+        android:textSize="15sp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintTop_toBottomOf="@id/textTitleView"
+        app:layout_constraintLeft_toLeftOf="@id/textTitleView"
+        app:layout_constraintRight_toRightOf="@id/textCategorizedView"/>
+
+    <TextView
+        android:id="@+id/textCurrentDateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        tools:text="RecyclerView"
-        android:textColor="@color/black"
-        android:layout_marginLeft="40dp"
+        tools:text="1399/09/01"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toTopOf="@id/textCategorizedView"
+        app:layout_constraintLeft_toLeftOf="@id/textMessageView"/>
 
-        app:layout_constraintTop_toBottomOf="@id/textTitleholder"
-        app:layout_constraintLeft_toLeftOf="parent"/>
     <TextView
         android:id="@+id/textCategorizedView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
-        android:textColor="#FA0202"
-        tools:text="RecyclerView"
-        android:layout_marginTop="10dp"
-
-        app:layout_constraintTop_toBottomOf="@id/textTitleholder"
-        app:layout_constraintRight_toRightOf="parent"/>
-    <TextView
-        android:id="@+id/textCurrentDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15dp"
-        android:textColor="@color/black"
-        tools:text="RecyclerView"
-
-        app:layout_constraintTop_toTopOf="@id/textTitleholder"
-        app:layout_constraintRight_toRightOf="parent"/>
-
+        tools:text="Categorized"
+        android:textColor="#237500"
+        android:layout_margin="30dp"
+        app:layout_constraintRight_toRightOf="@id/imageNote"
+        app:layout_constraintBottom_toBottomOf="@id/imageNote"/>
 
     <ImageView
-        android:id="@+id/imageTick"
+        android:id="@+id/tickItemView"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="50dp"
         android:src="@android:drawable/checkbox_on_background"
+        android:background="@null"
         android:visibility="invisible"
-        android:background="@null"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/textMessageView"/>
 
-
-
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-    <ImageView
-        android:id="@+id/imageNote"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:src="@android:drawable/ic_menu_sort_by_size"
-        android:visibility="visible"
-        android:background="@null"
-
-
-
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/black"
-
-        app:layout_constraintBottom_toBottomOf="@id/rootViewItem"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+ </androidx.constraintlayout.widget.ConstraintLayout>

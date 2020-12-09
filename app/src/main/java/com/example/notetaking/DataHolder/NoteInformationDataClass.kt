@@ -6,7 +6,8 @@ data class NoteInformationDataClass(
     val title: String,
     val message: String,
     val currentDate: String,
-    val categorizedData: String = "Uncategorized"
+    val categorizedData: String = "Uncategorized",
+    var selectedItem: Boolean = false
 )
 
 data class InformationDataClassDelete(

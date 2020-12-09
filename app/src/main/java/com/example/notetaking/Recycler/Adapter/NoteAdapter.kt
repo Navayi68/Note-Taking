@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notetaking.AddNote
@@ -22,13 +21,13 @@ interface PassDataForProcess {
     fun deleteData(
         specificDataKey: String,
         specificDataPosition: Int,
-        imageView: ConstraintLayout,
+        imageView: ImageView,
         tickItem: ImageView
     )
 
     fun editData(
         specificKeyPosition: Int,
-        imageView: ConstraintLayout,
+        imageView: ImageView,
         tickItem: ImageView
     )
 
@@ -142,21 +141,51 @@ class NoteAdapter(
 
         holder.categorizedView.text = arrayListData[position].categorizedData
 
-//        if (deleteAndEditArrayList.size == 0){
-//
-//            holder.imageNote.colorFilter=null
-//
-//            holder.tickItem.visibility=View.INVISIBLE
-//        }
+        if (arrayListData[position].selectedItem){
+
+            holder.tickItem.visibility=View.VISIBLE
+
+            holder.imageNote.setColorFilter(R.color.redTransparent,PorterDuff.Mode.DST_IN)
+        }else{
+
+            holder.tickItem.visibility=View.INVISIBLE
+
+            holder.imageNote.colorFilter=null
+        }
+
+        if (deleteAndEditArrayList.size == 0){
+
+            holder.imageNote.colorFilter=null
+
+            holder.tickItem.visibility=View.INVISIBLE
+        }
 
 
-        holder.rootItem.setOnLongClickListener {
+        holder.imageNote.setOnLongClickListener {
 
             if (deleteAndEditArrayList.size == 0) {
 
-                passDataForProcess.deleteData(arrayListData[position].id, position,holder.rootItem,holder.tickItem)
+                if (holder.tickItem.isShown){
 
-                passDataForProcess.editData(position, holder.rootItem, holder.tickItem)
+                    arrayListData[position].selectedItem=false
+
+                    holder.tickItem.visibility=View.INVISIBLE
+
+                    holder.imageNote.colorFilter=null
+
+
+                }else{
+
+                    arrayListData[position].selectedItem=true
+
+                    holder.tickItem.visibility=View.VISIBLE
+
+                    holder.imageNote.setColorFilter(R.color.redTransparent,PorterDuff.Mode.DST_IN)
+                }
+
+                passDataForProcess.deleteData(arrayListData[position].id, position,holder.imageNote,holder.tickItem)
+
+                passDataForProcess.editData(position, holder.imageNote, holder.tickItem)
 
                 deleteAndEditArrayList.add(
                     InformationDataClassDelete(
@@ -165,7 +194,7 @@ class NoteAdapter(
                     )
                 )
 
-                holder.rootItem.setBackgroundResource(R.color.redTransparent)
+                holder.imageNote.setColorFilter(R.color.redTransparent, PorterDuff.Mode.DST_IN)
 
                 holder.tickItem.visibility = View.VISIBLE
 
@@ -177,15 +206,15 @@ class NoteAdapter(
         }
 
 
-        holder.rootItem.setOnClickListener {
+        holder.imageNote.setOnClickListener {
+
+            passDataForProcess.editData(position, holder.imageNote, holder.tickItem)
 
             if (holder.tickItem.isVisible) {
 
-                holder.rootItem.setBackgroundResource(R.color.white)
+                holder.imageNote.colorFilter=null
 
                 holder.tickItem.visibility = View.INVISIBLE
-
-                //deleteAndEditArrayList.remove(arrayListData[position].id)
 
                 deleteAndEditArrayList.remove(
                     InformationDataClassDelete(
@@ -232,16 +261,14 @@ class NoteAdapter(
 
                     holder.tickItem.visibility = View.VISIBLE
 
-                    //deleteAndEditArrayList.add(arrayListData[position].id)
+                    holder.imageNote.setColorFilter(R.color.redTransparent,PorterDuff.Mode.DST_IN)
+
                     deleteAndEditArrayList.add(
                         InformationDataClassDelete(
                             arrayListData[position].id,
                             position
                         )
                     )
-
-
-                    holder.rootItem.setBackgroundResource(R.color.redTransparent)
 
                     if (deleteAndEditArrayList.size > 1)
                         context.mainBinding.editItemView.visibility = View.INVISIBLE
