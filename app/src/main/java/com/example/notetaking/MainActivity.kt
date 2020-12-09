@@ -4,14 +4,11 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notetaking.DataProcess.AfterBackgroundProcess
 import com.example.notetaking.DataProcess.NoteInformationDataProcess
 import com.example.notetaking.Recycler.Adapter.NoteAdapter
@@ -32,20 +29,26 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        mainBinding.textSearchView.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                TODO("Not yet implemented")
-            }
+        mainBinding.settingView.setOnClickListener {
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                TODO("Not yet implemented")
-            }
+            startActivity(Intent(this@MainActivity, Setting::class.java))
 
-            override fun afterTextChanged(s: Editable?) {
-                TODO("Not yet implemented")
-            }
+        }
 
-        })
+//        mainBinding.textSearchView.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
 
 
         mainBinding.textSearchView.addTextChangedListener {
@@ -57,13 +60,13 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
             if (searchItem.isEmpty()) {
 
-                //noteAdapter.arrayListData.clear()
+                noteAdapter.arrayListData.clear()
 
                 noteAdapter.notifyDataSetChanged()
 
             } else {
 
-                //noteAdapter.arrayListData.clear()
+                noteAdapter.arrayListData.clear()
 
                 noteAdapter.arrayListData.addAll(
                     noteInformationDataProcess.searchInData(
@@ -87,13 +90,9 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
         noteAdapter = NoteAdapter(this, this)
 
-        mainBinding.recyclerView.layoutManager = GridLayoutManager(
-            this@MainActivity, 2, GridLayoutManager.VERTICAL, false
-        )
-
+        mainBinding.recyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
 
         mainBinding.recyclerView.adapter = noteAdapter
-
 
     }
 
@@ -109,13 +108,16 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
     }
 
-    override fun deleteData(specificDataKey: Int, specificDataPosition: Int) {
+    override fun deleteData(
+        specificDataKey: String, specificDataPosition: Int,
+        imageView: ConstraintLayout,
+        tickItem: ImageView) {
 
         mainBinding.deleteItemView.visibility = View.VISIBLE
 
         mainBinding.editItemView.visibility = View.VISIBLE
 
-        Toast.makeText(this,specificDataPosition.toString(),Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, specificDataPosition.toString(), Toast.LENGTH_SHORT).show()
         mainBinding.deleteItemView.setOnClickListener {
 
             val dialog: AlertDialog.Builder = AlertDialog.Builder(this@MainActivity)
@@ -132,20 +134,45 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
                 setPositiveButton("Yes") { _, _ ->
 
+                    noteAdapter.deleteAndEditArrayList.sortByDescending {
+                        it.position
+                    }
 
-                    for (i in 0 .. noteAdapter.deleteAndEditArrayList.size-1) {
+                    for (i in 0 until noteAdapter.deleteAndEditArrayList.size) {
 
-                        val positionId = noteAdapter.deleteAndEditArrayList[i].position
+                        var positionId = noteAdapter.deleteAndEditArrayList[i].position
 
-                        val keyId = noteAdapter.deleteAndEditArrayList[i].key.toString()
+                        val keyId = noteAdapter.deleteAndEditArrayList[i].key
 
-                        noteAdapter.arrayListData.removeAt(positionId)
+                        if (noteAdapter.arrayListData.size == 1)
+
+                            when {
+
+                                positionId == 0 -> noteAdapter.arrayListData.removeAt(positionId)
+
+                                positionId >= 1 -> {
+
+                                    positionId = 1
+
+                                    noteAdapter.arrayListData.removeAt(positionId - 1)
+
+                                }
+                            }
+                        else
+                            noteAdapter.arrayListData.removeAt(positionId)
 
                         noteInformationDataProcess.deleteItemData(context, keyId)
                     }
 
                     noteAdapter.deleteAndEditArrayList.clear()
+
                     noteAdapter.notifyDataSetChanged()
+
+                    imageView.setBackgroundResource(R.color.white)
+
+                    tickItem.visibility=View.INVISIBLE
+
+                    mainBinding.buttonAdd.visibility=View.VISIBLE
 
                 }
 
@@ -160,7 +187,7 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
     override fun editData(
         specificKeyPosition: Int,
-        imageView: ImageView,
+        imageView: ConstraintLayout,
         tickItem: ImageView
     ) {
 
@@ -168,13 +195,19 @@ class MainActivity : AppCompatActivity(), PassDataForProcess, AfterBackgroundPro
 
             val intent: Intent = Intent(this@MainActivity, AddNote::class.java)
 
-            intent.putExtra("idExtra", noteAdapter.deleteAndEditArrayList[0].toString())
+            intent.putExtra("idExtra", noteAdapter.deleteAndEditArrayList[0].key)
 
             noteAdapter.deleteAndEditArrayList.clear()
 
             mainBinding.editItemView.visibility = View.INVISIBLE
 
             mainBinding.deleteItemView.visibility = View.INVISIBLE
+
+            imageView.setBackgroundResource(R.color.white)
+
+            tickItem.visibility=View.INVISIBLE
+
+            mainBinding.buttonAdd.visibility=View.VISIBLE
 
             startActivity(intent)
         }

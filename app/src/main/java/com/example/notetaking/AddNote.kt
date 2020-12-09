@@ -1,8 +1,6 @@
 package com.example.notetaking
 
 import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -43,11 +41,11 @@ class AddNote : AppCompatActivity() {
 
         addNoteBinding.spinnerView.adapter = arraySpinner
 
-        val idExtra = intent.getStringExtra("idExtra")?.toInt()
+        val idExtra = intent.getStringExtra("idExtra")
 
         if (intent.hasExtra("idExtra")) {
 
-            val readDataForExtra =noteInformationDataProcess.searchById(this@AddNote,idExtra!!)
+            val readDataForExtra =noteInformationDataProcess.searchById(this@AddNote,idExtra.toString())
 
             val titleExtra = readDataForExtra[0].title
 
@@ -89,7 +87,7 @@ class AddNote : AppCompatActivity() {
             val dateTime = SimpleDateFormat("dd/M/yyyy\nhh:mm:ss")
             val currentDate = dateTime.format(Date())
 
-            val id=System.currentTimeMillis()
+            val id=System.currentTimeMillis().toString()
 
             if (title.isEmpty()) {
 
@@ -113,7 +111,7 @@ class AddNote : AppCompatActivity() {
 
                     noteInformationDataProcess.saveInformationData(
                         applicationContext,
-                        id.toInt(),
+                        id,
                         title,
                         message,
                         currentDate,

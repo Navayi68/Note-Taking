@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
 
@@ -59,6 +60,7 @@
         app:layout_constraintBottom_toBottomOf="@id/textSearchView"/>
 
     <ImageView
+        android:id="@+id/settingView"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/setting"
@@ -82,43 +84,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#2196F3"
-        android:layout_marginRight="60dp"
+        android:layout_margin="45dp"
         android:src="@android:drawable/ic_input_add"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="@id/taskBar"
-        app:layout_constraintRight_toRightOf="@id/taskBar"/>
-
-    <ImageView
-        android:id="@+id/taskBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/task_bar"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 
     <ImageButton
         android:id="@+id/deleteItemView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_delete"
-        android:background="@null"
-        android:visibility="invisible"
         android:layout_marginRight="150dp"
-        android:layout_marginBottom="15dp"
+        android:background="@null"
+        android:layout_marginBottom="20dp"
+        android:src="@android:drawable/ic_menu_delete"
+        android:visibility="invisible"
         app:layout_constraintRight_toLeftOf="@id/buttonAdd"
-        app:layout_constraintBottom_toBottomOf="@id/taskBar"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageButton
         android:id="@+id/editItemView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
         android:background="@null"
         android:src="@android:drawable/ic_menu_edit"
         android:visibility="invisible"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="15dp"
         app:layout_constraintRight_toLeftOf="@id/deleteItemView"
-        app:layout_constraintBottom_toBottomOf="@id/taskBar" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

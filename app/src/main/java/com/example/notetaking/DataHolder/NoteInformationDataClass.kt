@@ -2,7 +2,7 @@ package com.example.notetaking.DataHolder
 
 //Use Data For Process
 data class NoteInformationDataClass(
-    val id: Int,
+    val id: String,
     val title: String,
     val message: String,
     val currentDate: String,
@@ -10,6 +10,6 @@ data class NoteInformationDataClass(
 )
 
 data class InformationDataClassDelete(
-    val key: Int,
+    val key: String,
     val position: Int
 )

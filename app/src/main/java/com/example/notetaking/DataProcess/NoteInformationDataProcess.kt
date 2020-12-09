@@ -3,6 +3,7 @@ package com.example.notetaking.DataProcess
 import android.content.Context
 import com.example.notetaking.DataHolder.NoteInformationDataClass
 import com.example.notetaking.MainActivity
+import com.example.notetaking.Recycler.Adapter.NoteAdapter
 
 //Use Interface For Background And Foreground In Thread
 interface AfterBackgroundProcess {
@@ -11,13 +12,18 @@ interface AfterBackgroundProcess {
 
 }
 
+interface InterfaceSearchInData {
+
+    fun search()
+
+}
 
 class NoteInformationDataProcess {
 
     //Save Information Data In ShearedPreferences
     fun saveInformationData(
         context: Context,
-        id: Int,
+        id: String,
         title: String,
         message: String,
         currentDate: String,
@@ -29,8 +35,7 @@ class NoteInformationDataProcess {
         sharedPreferences.edit().let {
 
             it.putString(
-                id.toString(),
-                "${id}|${title}|${message}|${currentDate}|${categorizedData}"
+                id.toString(), "${id}|${title}|${message}|${currentDate}|${categorizedData}"
             )
 
             it.apply()
@@ -41,7 +46,7 @@ class NoteInformationDataProcess {
 
 
     //Read Information Data From List For Process
-    fun loadInformationData(context: Context): List<NoteInformationDataClass> {
+    private fun loadInformationData(context: Context): List<NoteInformationDataClass> {
 
         val allListData: ArrayList<NoteInformationDataClass> = ArrayList<NoteInformationDataClass>()
 
@@ -55,7 +60,7 @@ class NoteInformationDataProcess {
 
                 val splittedData = it.split("|")
 
-                val id = splittedData[0].toInt()
+                val id = splittedData[0]
 
                 val title = splittedData[1]
 
@@ -80,7 +85,23 @@ class NoteInformationDataProcess {
     }
 
     //Search Item In Data List By Title
-    fun searchInData(context: Context, searchTitle: String): List<NoteInformationDataClass> {
+    fun searchInData(context: MainActivity, searchTitle: String): List<NoteInformationDataClass> {
+
+//        val noteAdapter:NoteAdapter=NoteAdapter(context,context)
+//
+//        val searchProcess = Thread(Runnable {
+//
+//            noteAdapter.arrayListData.clear()
+//
+//            noteAdapter.arrayListData.addAll(
+//                searchInData(
+//                    context,
+//                    context.mainBinding.textSearchView.text.toString()
+//                )
+//            )
+//            noteAdapter.notifyDataSetChanged()
+//        })
+
 
         val allData = loadInformationData(context)
 
@@ -97,14 +118,14 @@ class NoteInformationDataProcess {
     }
 
     //Search Item In Data List By Id
-    fun searchById(context: Context,searchId:Int): List<NoteInformationDataClass>{
+    fun searchById(context: Context, searchId: String): List<NoteInformationDataClass> {
         val allData = loadInformationData(context)
 
         val searchResult = ArrayList<NoteInformationDataClass>()
 
         allData.forEach {
 
-            if (it.id==searchId)
+            if (it.id == searchId)
                 searchResult.add(it)
 
         }
@@ -122,7 +143,10 @@ class NoteInformationDataProcess {
     }
 
     //Prepare Data In Background To Add To The List
-    fun setupAdapterData(mainActivity: MainActivity,afterBackgroundProcess: AfterBackgroundProcess) {
+    fun setupAdapterData(
+        mainActivity: MainActivity,
+        afterBackgroundProcess: AfterBackgroundProcess
+    ) {
 
         //Background Process
         val loadProcess = Thread(Runnable {
@@ -133,7 +157,7 @@ class NoteInformationDataProcess {
                 loadInformationData(mainActivity)
             )
 
-           afterBackgroundProcess.notifyUserInterfaceForData()
+            afterBackgroundProcess.notifyUserInterfaceForData()
 
         })
 
