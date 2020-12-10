@@ -141,49 +141,54 @@ class NoteAdapter(
 
         holder.categorizedView.text = arrayListData[position].categorizedData
 
-        if (arrayListData[position].selectedItem){
+        if (arrayListData[position].selectedItem) {
 
-            holder.tickItem.visibility=View.VISIBLE
+            holder.tickItem.visibility = View.VISIBLE
 
-            holder.imageNote.setColorFilter(R.color.redTransparent,PorterDuff.Mode.DST_IN)
-        }else{
+            holder.imageNote.setColorFilter(R.color.redTransparent, PorterDuff.Mode.DST_IN)
+        } else {
 
-            holder.tickItem.visibility=View.INVISIBLE
+            holder.tickItem.visibility = View.INVISIBLE
 
-            holder.imageNote.colorFilter=null
+            holder.imageNote.colorFilter = null
         }
 
-        if (deleteAndEditArrayList.size == 0){
-
-            holder.imageNote.colorFilter=null
-
-            holder.tickItem.visibility=View.INVISIBLE
-        }
+//        if (deleteAndEditArrayList.size == 0){
+//
+//            holder.imageNote.colorFilter=null
+//
+//            holder.tickItem.visibility=View.INVISIBLE
+//        }
 
 
         holder.imageNote.setOnLongClickListener {
 
             if (deleteAndEditArrayList.size == 0) {
 
-                if (holder.tickItem.isShown){
+                if (holder.tickItem.isShown) {
 
-                    arrayListData[position].selectedItem=false
+                    arrayListData[position].selectedItem = false
 
-                    holder.tickItem.visibility=View.INVISIBLE
+                    holder.tickItem.visibility = View.INVISIBLE
 
-                    holder.imageNote.colorFilter=null
+                    holder.imageNote.colorFilter = null
 
 
-                }else{
+                } else {
 
-                    arrayListData[position].selectedItem=true
+                    arrayListData[position].selectedItem = true
 
-                    holder.tickItem.visibility=View.VISIBLE
+                    holder.tickItem.visibility = View.VISIBLE
 
-                    holder.imageNote.setColorFilter(R.color.redTransparent,PorterDuff.Mode.DST_IN)
+                    holder.imageNote.setColorFilter(R.color.redTransparent, PorterDuff.Mode.DST_IN)
                 }
 
-                passDataForProcess.deleteData(arrayListData[position].id, position,holder.imageNote,holder.tickItem)
+                passDataForProcess.deleteData(
+                    arrayListData[position].id,
+                    position,
+                    holder.imageNote,
+                    holder.tickItem
+                )
 
                 passDataForProcess.editData(position, holder.imageNote, holder.tickItem)
 
@@ -198,7 +203,7 @@ class NoteAdapter(
 
                 holder.tickItem.visibility = View.VISIBLE
 
-                context.mainBinding.buttonAdd.visibility=View.INVISIBLE
+                context.mainBinding.buttonAdd.visibility = View.INVISIBLE
 
             }
 
@@ -210,11 +215,13 @@ class NoteAdapter(
 
             passDataForProcess.editData(position, holder.imageNote, holder.tickItem)
 
-            if (holder.tickItem.isVisible) {
+            if (holder.tickItem.isShown) {
 
-                holder.imageNote.colorFilter=null
+                arrayListData[position].selectedItem = false
 
                 holder.tickItem.visibility = View.INVISIBLE
+
+                holder.imageNote.colorFilter = null
 
                 deleteAndEditArrayList.remove(
                     InformationDataClassDelete(
@@ -223,11 +230,9 @@ class NoteAdapter(
                     )
                 )
 
-                if (deleteAndEditArrayList.size == 1) {
-
+                if (deleteAndEditArrayList.size == 1)
                     context.mainBinding.editItemView.visibility = View.VISIBLE
 
-                }
 
                 if (deleteAndEditArrayList.size == 0) {
 
@@ -235,7 +240,7 @@ class NoteAdapter(
 
                     context.mainBinding.deleteItemView.visibility = View.INVISIBLE
 
-                    context.mainBinding.buttonAdd.visibility=View.VISIBLE
+                    context.mainBinding.buttonAdd.visibility = View.VISIBLE
 
                 }
 
@@ -245,8 +250,8 @@ class NoteAdapter(
 
                     val intent: Intent = Intent(context, AddNote::class.java)
 
-                    val s = arrayListData[position].id.toString()
-                    intent.putExtra("idExtra", arrayListData[position].id.toString())
+                    val s = arrayListData[position].id
+                    intent.putExtra("idExtra", arrayListData[position].id)
 
                     intent.putExtra("title", arrayListData[position].title)
 
@@ -258,10 +263,11 @@ class NoteAdapter(
 
                 } else {
 
+                    arrayListData[position].selectedItem = true
 
                     holder.tickItem.visibility = View.VISIBLE
 
-                    holder.imageNote.setColorFilter(R.color.redTransparent,PorterDuff.Mode.DST_IN)
+                    holder.imageNote.setColorFilter(R.color.redTransparent, PorterDuff.Mode.DST_IN)
 
                     deleteAndEditArrayList.add(
                         InformationDataClassDelete(
@@ -274,11 +280,8 @@ class NoteAdapter(
                         context.mainBinding.editItemView.visibility = View.INVISIBLE
 
                 }
-
             }
-
         }
-
     }
 
     override fun getItemCount(): Int {
