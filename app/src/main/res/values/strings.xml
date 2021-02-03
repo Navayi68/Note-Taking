@@ -16,4 +16,30 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <string name="setting">Setting</string>
+    <string name="setting_fn">تنظیمات</string>
+
+    <string name="text_Action_Main">Note Taking</string>
+    <string name="text_Action_Main_fn">دفترچه یادداشت</string>
+
+    <string name="search_hint">Type To Search</string>
+    <string name="search_hint_fn">متن را وارد کنید</string>
+
+    <string name="text_Action_Add">Note</string>
+    <string name="text_Action_Add_fn">یادداشت</string>
+
+    <string name="category">Categorized:</string>
+    <string name="category_fn">: دسته بندی</string>
+
+    <string name="title_add_note">Title</string>
+    <string name="title_add_note_fn">عنوان</string>
+
+    <string name="message_add_note">Message</string>
+    <string name="message_add_note_fn">پیام</string>
+
+    <string name="save_button">Save</string>
+    <string name="save_button_fn">ذخیره</string>
+
+
 </resources>

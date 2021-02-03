@@ -10,10 +10,10 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notetaking.AddNote
 import com.example.notetaking.DataHolder.InformationDataClassDelete
-import com.example.notetaking.DataHolder.NoteInformationDataClass
 import com.example.notetaking.MainActivity
 import com.example.notetaking.R
 import com.example.notetaking.Recycler.DataHolder.NoteViewHolder
+import com.example.notetaking.RoomDataBase.DataBaseModel
 
 //Use Interface For Delete And Edit Data
 interface PassDataForProcess {
@@ -31,6 +31,9 @@ interface PassDataForProcess {
         tickItem: ImageView
     )
 
+    fun addToArchive(
+        listDataForArchive: DataBaseModel
+    )
 }
 
 //Categorized Data For Add to Spinner
@@ -51,7 +54,7 @@ class NoteAdapter(
 ) : RecyclerView.Adapter<NoteViewHolder>() {
 
     //Array List For All Data
-    val arrayListData: ArrayList<NoteInformationDataClass> = ArrayList<NoteInformationDataClass>()
+    val arrayListData: ArrayList<DataBaseModel> = ArrayList<DataBaseModel>()
 
     //Array List For Delete And Edit
     val deleteAndEditArrayList: ArrayList<InformationDataClassDelete> =
@@ -118,14 +121,15 @@ class NoteAdapter(
 
         return when (arrayListData[position].categorizedData) {
 
-            "Uncategorized" -> ViewType.TypeUncategorized
-            "Office" -> ViewType.TypeOffice
-            "Personal" -> ViewType.TypePersonal
-            "Family affair" -> ViewType.TypeFamily
-            "Study" -> ViewType.TypeStudy
-            "Shopping" -> ViewType.TypeShopping
-            "Health" -> ViewType.TypeHealth
-            else -> ViewType.TypeWork
+            "Uncategorized","دسته بندی نشده" -> ViewType.TypeUncategorized
+            "Office","دفتر" -> ViewType.TypeOffice
+            "Personal","شخصی" -> ViewType.TypePersonal
+            "Family affair","خانوادگی" -> ViewType.TypeFamily
+            "Study","مطالعه" -> ViewType.TypeStudy
+            "Shopping","خرید" -> ViewType.TypeShopping
+            "Health","سلامتی" -> ViewType.TypeHealth
+            "Work","کار" -> ViewType.TypeWork
+            else-> ViewType.TypeUncategorized
 
         }
 
@@ -152,14 +156,6 @@ class NoteAdapter(
 
             holder.imageNote.colorFilter = null
         }
-
-//        if (deleteAndEditArrayList.size == 0){
-//
-//            holder.imageNote.colorFilter=null
-//
-//            holder.tickItem.visibility=View.INVISIBLE
-//        }
-
 
         holder.imageNote.setOnLongClickListener {
 
@@ -190,12 +186,21 @@ class NoteAdapter(
                     holder.tickItem
                 )
 
+                passDataForProcess.addToArchive(DataBaseModel(
+                    "",
+                arrayListData[position].title,
+                arrayListData[position].message,
+                arrayListData[position].currentDate,
+                arrayListData[position].categorizedData))
                 passDataForProcess.editData(position, holder.imageNote, holder.tickItem)
 
                 deleteAndEditArrayList.add(
                     InformationDataClassDelete(
                         arrayListData[position].id,
-                        position
+                        position,
+                        arrayListData[position].title,
+                        arrayListData[position].message,
+                        arrayListData[position].categorizedData
                     )
                 )
 
@@ -226,7 +231,10 @@ class NoteAdapter(
                 deleteAndEditArrayList.remove(
                     InformationDataClassDelete(
                         arrayListData[position].id,
-                        position
+                        position,
+                        arrayListData[position].title,
+                        arrayListData[position].message,
+                        arrayListData[position].categorizedData
                     )
                 )
 
@@ -240,6 +248,14 @@ class NoteAdapter(
 
                     context.mainBinding.deleteItemView.visibility = View.INVISIBLE
 
+                    if (!context.mainBinding.textSearchView.isVisible) {
+
+                        context.mainBinding.searchIconActionView.visibility = View.VISIBLE
+
+                        context.mainBinding.addActionView.visibility = View.VISIBLE
+
+                    }
+
                     context.mainBinding.buttonAdd.visibility = View.VISIBLE
 
                 }
@@ -248,16 +264,15 @@ class NoteAdapter(
 
                 if (deleteAndEditArrayList.size == 0) {
 
-                    val intent: Intent = Intent(context, AddNote::class.java)
+                    val intent = Intent(context, AddNote::class.java)
 
-                    val s = arrayListData[position].id
                     intent.putExtra("idExtra", arrayListData[position].id)
 
-                    intent.putExtra("title", arrayListData[position].title)
+                    intent.putExtra("titleExtra", arrayListData[position].title)
 
-                    intent.putExtra("message", arrayListData[position].message)
+                    intent.putExtra("messageExtra", arrayListData[position].message)
 
-                    intent.putExtra("categorized", arrayListData[position].categorizedData)
+                    intent.putExtra("categorizedExtra", arrayListData[position].categorizedData)
 
                     context.startActivity(intent)
 
@@ -272,7 +287,10 @@ class NoteAdapter(
                     deleteAndEditArrayList.add(
                         InformationDataClassDelete(
                             arrayListData[position].id,
-                            position
+                            position,
+                            arrayListData[position].title,
+                            arrayListData[position].message,
+                            arrayListData[position].categorizedData
                         )
                     )
 

@@ -1,56 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:background="#C9F1EB"
     tools:context=".AddNote">
+
+    <TextView
+        android:id="@+id/actionBarView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#E6306E"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textActionBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="@string/text_Action_Add"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/actionBarView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/actionBarView" />
+
+    <ImageView
+        android:id="@+id/backActionView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="15dp"
+        android:background="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/back_icon"
+        app:layout_constraintBottom_toBottomOf="@id/actionBarView"
+        app:layout_constraintLeft_toLeftOf="@id/actionBarView"
+        app:layout_constraintTop_toTopOf="@id/actionBarView" />
+
+    <ImageButton
+        android:id="@+id/saveButtonAction"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_save"
+        app:layout_constraintBottom_toBottomOf="@id/actionBarView"
+        app:layout_constraintRight_toRightOf="@id/actionBarView"
+        app:layout_constraintTop_toTopOf="@id/actionBarView" />
+
+    <TextView
+        android:id="@+id/categorizedGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/category"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@id/titleViewItem"
+        app:layout_constraintTop_toBottomOf="@id/actionBarView" />
 
     <Spinner
         android:id="@+id/spinnerView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_marginStart="30dp"
+        app:layout_constraintLeft_toRightOf="@id/categorizedGroup"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/actionBarView" />
 
     <EditText
         android:id="@+id/titleViewItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Title"
-        android:textSize="25sp"
-        android:textColor="@color/black"
-        android:singleLine="true"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/style_edit_text"
+        android:hint="@string/title_add_note"
+        android:padding="10dp"
         android:imeOptions="actionNext"
-        android:maxLength="30"
-        app:layout_constraintTop_toBottomOf="@id/spinnerView"/>
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/categorizedGroup" />
 
     <EditText
         android:id="@+id/messageViewItem"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:hint="Message"
-        android:gravity="start"
-        android:textSize="20sp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/style_edit_text"
+        android:gravity="start"
+        android:hint="@string/message_add_note"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/titleViewItem"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonSave"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:layout_marginStart="211dp"
-        android:layout_marginEnd="261dp"
-        android:layout_marginBottom="44dp"
-        android:text="Save"
-
-        android:textAllCaps="false"
-        app:icon="@android:drawable/ic_menu_save"
-        app:iconGravity="start"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/titleViewItem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
