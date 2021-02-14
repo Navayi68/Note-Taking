@@ -2,13 +2,10 @@ package com.example.notetaking.Setting
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.notetaking.DataProcess.NoteInformationDataProcess
-import com.example.notetaking.MainActivity
 import com.example.notetaking.R
 import com.example.notetaking.databinding.SettingLayoutBinding
 
@@ -56,7 +53,7 @@ class Setting : AppCompatActivity() {
 
         settingLayoutBinding.backActionView.setOnClickListener {
 
-            startActivity(Intent(this@Setting,MainActivity::class.java))
+            finish()
 
         }
 

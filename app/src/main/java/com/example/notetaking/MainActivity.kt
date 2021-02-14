@@ -22,6 +22,7 @@ import com.example.notetaking.Recycler.Adapter.PassDataForProcess
 import com.example.notetaking.RoomDataBase.DataBaseInterFace
 import com.example.notetaking.RoomDataBase.DataBaseModel
 import com.example.notetaking.RoomDataBase.DataBaseName
+import com.example.notetaking.Setting.Setting
 import com.example.notetaking.UI.Gesture.GestureConstants
 import com.example.notetaking.UI.Gesture.GestureListenerConstants
 import com.example.notetaking.UI.Gesture.GestureListenerInterface
@@ -53,6 +54,10 @@ class MainActivity : AppCompatActivity(), PassDataForProcess,
 
         setLanguage()
 
+        mainBinding.settingActionView.setOnClickListener {
+            startActivity(Intent(this@MainActivity, Setting::class.java))
+        }
+
         mainBinding.searchIconActionView.setOnClickListener {
 
             val animationLeftIn =
@@ -62,6 +67,7 @@ class MainActivity : AppCompatActivity(), PassDataForProcess,
             mainBinding.backActionView.startAnimation(animationLeftIn)
             mainBinding.addActionView.visibility = View.INVISIBLE
             mainBinding.textActionBar.visibility = View.INVISIBLE
+            mainBinding.settingActionView.visibility = View.INVISIBLE
             mainBinding.searchIconActionView.visibility = View.INVISIBLE
             mainBinding.textSearchView.visibility = View.VISIBLE
             mainBinding.backActionView.visibility = View.VISIBLE
@@ -89,6 +95,7 @@ class MainActivity : AppCompatActivity(), PassDataForProcess,
             mainBinding.textActionBar.startAnimation(animationFadeIn)
             mainBinding.addActionView.visibility = View.VISIBLE
             mainBinding.textActionBar.visibility = View.VISIBLE
+            mainBinding.settingActionView.visibility = View.VISIBLE
             mainBinding.searchIconActionView.visibility = View.VISIBLE
 
             mainBinding.textSearchView.setText("")
@@ -190,14 +197,14 @@ class MainActivity : AppCompatActivity(), PassDataForProcess,
 
         val sharedPreferences = getSharedPreferences("SettingFile", Context.MODE_PRIVATE)
 
-        val language = sharedPreferences.getString("language",null)
+        val language = sharedPreferences.getString("language", null)
 
-        if (language=="Fn"){
+        if (language == "Fn") {
 
             mainBinding.textActionBar.setText(R.string.text_Action_Main_fn)
             mainBinding.textSearchView.setHint(R.string.search_hint_fn)
 
-        }else{
+        } else {
 
             mainBinding.textActionBar.setText(R.string.text_Action_Main)
             mainBinding.textSearchView.setHint(R.string.search_hint)
@@ -282,12 +289,12 @@ class MainActivity : AppCompatActivity(), PassDataForProcess,
 
                 noteAdapter.notifyDataSetChanged()
 
-
                 mainBinding.textActionBar.visibility = View.VISIBLE
                 mainBinding.searchIconActionView.visibility = View.VISIBLE
                 mainBinding.addActionView.visibility = View.VISIBLE
                 mainBinding.textSearchView.visibility = View.INVISIBLE
                 mainBinding.backActionView.visibility = View.INVISIBLE
+                mainBinding.settingActionView.visibility = View.VISIBLE
 
             }
         }
